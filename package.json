@@ -1,0 +1,28 @@
+{
+  "name": "week_3_ai_course",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "node src/build.js && npm run build:css",
+    "build:css": "npx tailwindcss -i ./template/styles.css -o ./public/assets/css/styles.css --minify",
+    "preview": "live-server public --port=3000",
+    "dev": "npm run build && npm run preview",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "fs-extra": "^11.3.2",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.0"
+  },
+  "devDependencies": {
+    "live-server": "^1.2.2",
+    "tailwindcss": "^3.4.18"
+  }
+}

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog - Developer Portfolio</title>
+    <meta name="description" content="Technical articles and insights from a freelance developer">
+    <link href="/assets/css/styles.css" rel="stylesheet">
+    <script>
+        // Dark mode initialization
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+</head>
+<body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
+    <!-- Navigation -->
+    {{ include:navigation.html }}
+
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+            <!-- Page Header -->
+            <header class="mb-12">
+                <h1 class="text-5xl font-bold mb-4">Blog</h1>
+                <p class="text-xl text-gray-600 dark:text-gray-400">
+                    Thoughts on web development, freelancing, and technology
+                </p>
+            </header>
+
+            <!-- Blog Posts Grid -->
+            <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
+                {{ foreach posts }}
+                <article class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-200">
+                    <div class="p-6">
+                        <!-- Post Date -->
+                        <time class="text-sm text-gray-600 dark:text-gray-400" datetime="{{ post.date }}">
+                            {{ post.date }}
+                        </time>
+                        
+                        <!-- Post Title -->
+                        <h2 class="text-2xl font-bold mt-2 mb-3">
+                            <a href="{{ post.url }}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                {{ post.title }}
+                            </a>
+                        </h2>
+                        
+                        <!-- Post Description/Excerpt -->
+                        <p class="text-gray-600 dark:text-gray-400 mb-4">
+                            {{ post.description }}
+                        </p>
+                        
+                        <!-- Read More Link -->
+                        <a href="{{ post.url }}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">
+                            Read more
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+                {{ endforeach }}
+            </div>
+
+            <!-- Empty State (if no posts) -->
+            {{ if no_posts }}
+            <div class="text-center py-16">
+                <p class="text-gray-600 dark:text-gray-400 text-lg">
+                    No blog posts yet. Check back soon!
+                </p>
+            </div>
+            {{ endif }}
+        </div>
+    </main>
+
+    <!-- Footer -->
+    {{ include:footer.html }}
+
+    <!-- Dark Mode Toggle Script -->
+    <script>
+        function toggleDarkMode() {
+            const html = document.documentElement;
+            const isDark = html.classList.contains('dark');
+            
+            if (isDark) {
+                html.classList.remove('dark');
+                localStorage.theme = 'light';
+            } else {
+                html.classList.add('dark');
+                localStorage.theme = 'dark';
+            }
+        }
+    </script>
+</body>
+</html>
