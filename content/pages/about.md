@@ -6,7 +6,7 @@ description: "Learn more about my background, skills, and experience as a freela
 author: "Wong Ju Wei"
 ---
 
-# About
+<!-- # About -->
 
 Hi! I'm a passionate freelance developer specializing in modern web applications and backend systems.
 

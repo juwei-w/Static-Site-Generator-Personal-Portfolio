@@ -220,6 +220,9 @@ async function build() {
     // Read templates
     const mainTemplate = readTemplate('main.html');
     const blogIndexTemplate = readTemplate('blog-index.html');
+    const projectsTemplate = readTemplate('projects.html');
+    const aboutTemplate = readTemplate('about.html');
+    const contactTemplate = readTemplate('contact.html');
     console.log('✓ Read templates');
     
     // Process posts
@@ -248,20 +251,28 @@ async function build() {
     
     // Build individual pages
     pages.forEach(page => {
-        const html = buildPage(page, mainTemplate);
+        // Use dedicated templates for specific pages, main.html for others
+        let template = mainTemplate;
+        if (page.slug === 'projects') {
+            template = projectsTemplate;
+        } else if (page.slug === 'about') {
+            template = aboutTemplate;
+        } else if (page.slug === 'contact') {
+            template = contactTemplate;
+        }
+        
+        const html = buildPage(page, template);
         const outputPath = path.join(PUBLIC_DIR, page.slug, 'index.html');
         fs.ensureDirSync(path.dirname(outputPath));
         fs.writeFileSync(outputPath, html);
     });
     console.log(`✓ Built ${pages.length} static pages`);
     
-    // Create homepage using home.md if it exists, otherwise fall back to about
-    const homePage = pages.find(p => p.slug === 'home') || pages.find(p => p.slug === 'about');
-    if (homePage) {
-        const homeHtml = buildPage(homePage, mainTemplate);
-        fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), homeHtml);
-        console.log('✓ Built homepage');
-    }
+    // Create homepage using dedicated home.html template
+    const homeTemplate = readTemplate('home.html');
+    const homeHtml = processIncludes(homeTemplate);
+    fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), homeHtml);
+    console.log('✓ Built homepage with hero template');
     
     console.log('\n✅ Build complete!');
     console.log(`\nGenerated files in: ${PUBLIC_DIR}`);

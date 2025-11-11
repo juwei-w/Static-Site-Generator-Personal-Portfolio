@@ -6,7 +6,7 @@ description: "Get in touch with me for project inquiries, collaborations, or jus
 author: "Wong Ju Wei"
 ---
 
-# Get In Touch
+<!-- # Get In Touch -->
 
 I'd love to hear from you! Whether you have a project in mind, want to collaborate, or just want to connect, feel free to reach out.
 

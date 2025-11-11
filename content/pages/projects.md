@@ -6,7 +6,7 @@ description: "A showcase of my freelance development work, including web applica
 author: "Wong Ju Wei"
 ---
 
-# My Projects
+<!-- # My Projects -->
 
 Here's a selection of projects I've worked on as a freelance developer. Each represents a unique challenge and learning opportunity.
 

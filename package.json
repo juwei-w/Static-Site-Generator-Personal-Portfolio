@@ -8,9 +8,12 @@
   "scripts": {
     "build": "node src/build.js && npm run build:css",
     "build:css": "npx tailwindcss -i ./template/styles.css -o ./public/assets/css/styles.css --minify",
-    "preview": "live-server public --port=3000",
-    "dev": "npm run build && npm run preview",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "watch": "node src/watch.js",
+    "serve": "live-server public --port=3000 --no-browser",
+    "dev": "concurrently \"npm run watch\" \"npm run serve\" --names \"WATCH,SERVE\" --prefix-colors \"cyan,green\"",
+    "preview": "npm run build && live-server public --port=3000",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "node src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -22,6 +25,8 @@
     "marked": "^17.0.0"
   },
   "devDependencies": {
+    "chokidar": "^4.0.3",
+    "concurrently": "^9.2.1",
     "live-server": "^1.2.2",
     "tailwindcss": "^3.4.18"
   }
