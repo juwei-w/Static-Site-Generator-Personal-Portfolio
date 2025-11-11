@@ -1,0 +1,14 @@
+# Cloudflare Pages Configuration
+name = "week3-ai-course"
+compatibility_date = "2025-11-11"
+
+[site]
+bucket = "./public"
+
+# Build configuration
+[build]
+command = "npm run build"
+cwd = ""
+
+[build.upload]
+format = "service-worker"

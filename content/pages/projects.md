@@ -3,7 +3,7 @@ title: "Projects"
 date: 2025-11-10
 status: published
 description: "A showcase of my freelance development work, including web applications, APIs, and more."
-author: "Your Name"
+author: "Wong Ju Wei"
 ---
 
 # My Projects

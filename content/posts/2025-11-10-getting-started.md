@@ -3,7 +3,7 @@ title: "Getting Started with My Portfolio"
 date: 2025-11-10
 status: published
 description: "Welcome to my portfolio and blog! Learn more about who I am and what I do as a freelance developer."
-author: "Your Name"
+author: "Wong Ju Wei"
 slug: "getting-started"
 ---
 

@@ -3,7 +3,7 @@ title: "Contact"
 date: 2025-11-10
 status: published
 description: "Get in touch with me for project inquiries, collaborations, or just to say hello."
-author: "Your Name"
+author: "Wong Ju Wei"
 ---
 
 # Get In Touch

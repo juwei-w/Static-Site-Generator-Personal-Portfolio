@@ -3,7 +3,7 @@ title: "Building a Real-Time Chat Application"
 date: 2025-11-08
 status: published
 description: "A detailed look at my recent project: a real-time chat application built with Node.js and WebSockets."
-author: "Your Name"
+author: "Wong Ju Wei"
 slug: "real-time-chat-app"
 ---
 

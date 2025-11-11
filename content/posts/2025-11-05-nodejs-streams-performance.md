@@ -3,7 +3,7 @@ title: "Mastering Node.js Streams for Better Performance"
 date: 2025-11-05
 status: published
 description: "Learn how Node.js streams can dramatically improve your application's performance when handling large datasets."
-author: "Your Name"
+author: "Wong Ju Wei"
 slug: "nodejs-streams-performance"
 ---
 

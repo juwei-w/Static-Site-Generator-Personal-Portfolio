@@ -3,7 +3,7 @@ title: "Work in Progress: E-Commerce Platform"
 date: 2025-11-01
 status: draft
 description: "Currently working on a custom e-commerce platform with advanced features. Coming soon!"
-author: "Your Name"
+author: "Wong Ju Wei"
 slug: "ecommerce-platform"
 ---
 
