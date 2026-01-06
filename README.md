@@ -140,9 +140,11 @@ This generates:
 **GitHub Pages:**
 The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically builds and deploys the site.
 
+**Live Site:** [https://juwei-w.github.io/Static-Site-Generator-Personal-Portfolio/](https://juwei-w.github.io/Static-Site-Generator-Personal-Portfolio/)
+
 1. Go to **Settings** > **Pages** in your repository.
 2. Under **Build and deployment** > **Source**, select **GitHub Actions**.
-3. The workflow will automatically pick up the change and deploy the site.
+3. Push to the `master` branch to trigger a deployed.
 
 ## 🛠️ Available Scripts
 
