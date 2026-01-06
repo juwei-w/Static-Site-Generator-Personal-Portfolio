@@ -137,10 +137,12 @@ This generates:
 - Output directory: `public`
 
 **GitHub Pages:**
-```bash
-npm run build
-# Copy public/ contents to your gh-pages branch
-```
+**GitHub Pages:**
+The repository includes a GitHub Actions workflow (`.github/workflows/deploy.yml`) that automatically builds and deploys the site.
+
+1. Go to **Settings** > **Pages** in your repository.
+2. Under **Build and deployment** > **Source**, select **GitHub Actions**.
+3. The workflow will automatically pick up the change and deploy the site.
 
 ## 🛠️ Available Scripts
 
