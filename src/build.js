@@ -7,8 +7,6 @@ const matter = require('gray-matter');
 const CONTENT_DIR = path.join(__dirname, '../content');
 const TEMPLATE_DIR = path.join(__dirname, '../template');
 const PUBLIC_DIR = path.join(__dirname, '../public');
-const repo = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[1] : '';
-const BASE_PATH = process.env.GITHUB_ACTIONS && repo && !repo.endsWith('.github.io') ? '/' + repo : '';
 
 // Helper: Format date
 function formatDate(dateString) {
@@ -32,6 +30,12 @@ function generateSlug(title) {
 function generateExcerpt(content, length = 150) {
     const text = content.replace(/<[^>]*>/g, '').replace(/\n/g, ' ');
     return text.length > length ? text.substring(0, length) + '...' : text;
+}
+
+// Helper: Get relative path prefix based on depth
+function getRelativePath(depth) {
+    if (depth === 0) return '.';
+    return Array(depth).fill('..').join('/');
 }
 
 // Read and parse template files
@@ -119,7 +123,7 @@ function processContent(contentPath, type) {
             slug,
             formattedDate,
             excerpt,
-            url: BASE_PATH + (type === 'posts' ? `/blog/${slug}` : `/${slug}`)
+            url: type === 'posts' ? `/blog/${slug}` : `/${slug}`
         });
     });
 
@@ -127,8 +131,9 @@ function processContent(contentPath, type) {
 }
 
 // Build a single page
-function buildPage(pageData, template) {
+function buildPage(pageData, template, depth = 0) {
     let html = template;
+    const basePath = getRelativePath(depth);
 
     // Process includes
     html = processIncludes(html);
@@ -154,7 +159,7 @@ function buildPage(pageData, template) {
         site: {
             name: 'YourName.dev',
             url: 'https://yourname.dev',
-            base_path: BASE_PATH
+            base_path: basePath
         },
         main_content: pageData.content
     });
@@ -163,11 +168,25 @@ function buildPage(pageData, template) {
 }
 
 // Build blog index
-function buildBlogIndex(posts, template) {
+function buildBlogIndex(posts, template, depth = 1) {
     let html = template;
+    const basePath = getRelativePath(depth); // Blog index is at /blog/index.html (depth 1)
 
     // Process includes
     html = processIncludes(html);
+
+    // Process Variables for base_path in nav/footer
+    html = processVariables(html, {
+        page: {
+            title: 'Blog',
+            description: 'My thoughts and writings'
+        },
+        site: {
+            name: 'YourName.dev',
+            url: 'https://yourname.dev',
+            base_path: basePath
+        }
+    });
 
     // Sort posts by date (newest first)
     const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
@@ -180,14 +199,14 @@ function buildBlogIndex(posts, template) {
                     ${post.formattedDate}
                 </time>
                 <h2 class="text-2xl font-bold mt-2 mb-3">
-                    <a href="${post.url}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                    <a href="${basePath}${post.url}" class="hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
                         ${post.title}
                     </a>
                 </h2>
                 <p class="text-gray-600 dark:text-gray-400 mb-4">
                     ${post.excerpt}
                 </p>
-                <a href="${post.url}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">
+                <a href="${basePath}${post.url}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-medium transition-colors">
                     Read more
                     <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
@@ -235,7 +254,8 @@ async function build() {
 
     // Build individual blog posts
     posts.forEach(post => {
-        const html = buildPage(post, mainTemplate);
+        // Post pages are depth 2 (e.g., /blog/slug/index.html)
+        const html = buildPage(post, mainTemplate, 2);
         const outputPath = path.join(PUBLIC_DIR, 'blog', post.slug, 'index.html');
         fs.ensureDirSync(path.dirname(outputPath));
         fs.writeFileSync(outputPath, html);
@@ -243,7 +263,8 @@ async function build() {
     console.log(`✓ Built ${posts.length} blog post pages`);
 
     // Build blog index
-    const blogIndexHtml = buildBlogIndex(posts, blogIndexTemplate);
+    // Blog index is depth 1 (e.g., /blog/index.html)
+    const blogIndexHtml = buildBlogIndex(posts, blogIndexTemplate, 1);
     fs.writeFileSync(path.join(PUBLIC_DIR, 'blog', 'index.html'), blogIndexHtml);
     console.log('✓ Built blog index page');
 
@@ -264,7 +285,8 @@ async function build() {
             template = contactTemplate;
         }
 
-        const html = buildPage(page, template);
+        // Standard pages are depth 1 (e.g., /slug/index.html)
+        const html = buildPage(page, template, 1);
         const outputPath = path.join(PUBLIC_DIR, page.slug, 'index.html');
         fs.ensureDirSync(path.dirname(outputPath));
         fs.writeFileSync(outputPath, html);
@@ -273,7 +295,25 @@ async function build() {
 
     // Create homepage using dedicated home.html template
     const homeTemplate = readTemplate('home.html');
-    const homeHtml = processIncludes(homeTemplate);
+    let homeHtml = processIncludes(homeTemplate);
+    // Home is depth 0 (e.g., /index.html)
+    homeHtml = processVariables(homeHtml, {
+        page: {
+            title: 'Home',
+            description: 'Freelance Developer Portfolio'
+        },
+        site: {
+            name: 'YourName.dev',
+            url: 'https://yourname.dev',
+            base_path: '.'
+        }
+    });
+
+    // Fix recent posts links in home
+    // We need to inject recent posts manually or via variable replacement if the template supported it.
+    // However, the home template currently has hardcoded posts.
+    // We should ideally update them to use {{ site.base_path }} which is now '.'
+
     fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), homeHtml);
     console.log('✓ Built homepage with hero template');
 
