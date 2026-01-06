@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} - {{ site.name }}</title>
     <meta name="description" content="{{ page.description }}">
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="{{ site.base_path }}/assets/css/styles.css" rel="stylesheet">
     <script>
         // Dark mode initialization
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -15,6 +16,7 @@
         }
     </script>
 </head>
+
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
     <!-- Navigation -->
     {{ include:navigation.html }}
@@ -22,20 +24,24 @@
     <!-- Main Content -->
     <main class="min-h-screen">
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
+        <section
+            class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div class="max-w-3xl">
                     <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6">
                         About Me
                     </h1>
                     <p class="text-xl md:text-2xl text-gray-700 dark:text-gray-300 mb-8">
-                        Hi! I'm Wong Ju Wei, a passionate freelance developer specializing in modern web applications and backend systems.
+                        Hi! I'm Wong Ju Wei, a passionate freelance developer specializing in modern web applications
+                        and backend systems.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="/contact" class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors font-semibold">
+                        <a href="{{ site.base_path }}/contact"
+                            class="inline-block bg-blue-600 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors font-semibold">
                             Get in Touch
                         </a>
-                        <a href="/projects" class="inline-block bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-shadow font-semibold border border-blue-600 dark:border-blue-400">
+                        <a href="{{ site.base_path }}/projects"
+                            class="inline-block bg-white dark:bg-gray-800 text-blue-600 dark:text-blue-400 px-6 py-3 rounded-lg shadow-lg hover:shadow-xl transition-shadow font-semibold border border-blue-600 dark:border-blue-400">
                             View Projects
                         </a>
                     </div>
@@ -50,16 +56,19 @@
                     <div>
                         <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">My Background</h2>
                         <p class="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                            I've been coding for over 5 years, working with startups, small businesses, and enterprise clients to bring their ideas to life.
+                            I've been coding for over 5 years, working with startups, small businesses, and enterprise
+                            clients to bring their ideas to life.
                         </p>
                         <p class="text-lg text-gray-600 dark:text-gray-300 mb-4">
-                            My journey in tech started with a curiosity about how websites work, and it's evolved into a fulfilling career building software solutions that make a real impact.
+                            My journey in tech started with a curiosity about how websites work, and it's evolved into a
+                            fulfilling career building software solutions that make a real impact.
                         </p>
                         <p class="text-lg text-gray-600 dark:text-gray-300">
                             I believe in clean code, clear communication, and continuous learning.
                         </p>
                     </div>
-                    <div class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 border border-gray-200 dark:border-gray-600">
+                    <div
+                        class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-700 rounded-2xl p-8 border border-gray-200 dark:border-gray-600">
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Quick Stats</h3>
                         <div class="space-y-4">
                             <div class="flex items-center justify-between">
@@ -89,15 +98,20 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Skills & Technologies</h2>
-                    <p class="text-lg text-gray-600 dark:text-gray-300">Tools and technologies I use to build great software</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300">Tools and technologies I use to build great
+                        software</p>
                 </div>
 
                 <div class="grid md:grid-cols-3 gap-8">
                     <!-- Languages -->
-                    <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                        <div class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div
+                            class="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-blue-600 dark:text-blue-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Languages</h3>
@@ -122,10 +136,15 @@
                     </div>
 
                     <!-- Frameworks & Tools -->
-                    <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                        <div class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div
+                            class="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-green-600 dark:text-green-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Frameworks & Tools</h3>
@@ -154,10 +173,15 @@
                     </div>
 
                     <!-- Specialties -->
-                    <div class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
-                        <div class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
-                            <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    <div
+                        class="bg-white dark:bg-gray-900 rounded-xl p-6 shadow-sm border border-gray-200 dark:border-gray-700">
+                        <div
+                            class="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6 text-purple-600 dark:text-purple-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">Specialties</h3>
@@ -193,44 +217,55 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="text-center mb-12">
                     <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">What I Do</h2>
-                    <p class="text-lg text-gray-600 dark:text-gray-300">As a freelance developer, I help clients succeed</p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300">As a freelance developer, I help clients succeed
+                    </p>
                 </div>
 
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                         <div class="text-blue-600 dark:text-blue-400 mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Build Custom Applications</h3>
-                        <p class="text-gray-600 dark:text-gray-300">Web applications from scratch, tailored to your specific needs</p>
+                        <p class="text-gray-600 dark:text-gray-300">Web applications from scratch, tailored to your
+                            specific needs</p>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                         <div class="text-blue-600 dark:text-blue-400 mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Optimize Performance</h3>
-                        <p class="text-gray-600 dark:text-gray-300">Improve speed and efficiency of existing codebases</p>
+                        <p class="text-gray-600 dark:text-gray-300">Improve speed and efficiency of existing codebases
+                        </p>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                         <div class="text-blue-600 dark:text-blue-400 mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Integrate APIs</h3>
-                        <p class="text-gray-600 dark:text-gray-300">Connect third-party services and build custom APIs</p>
+                        <p class="text-gray-600 dark:text-gray-300">Connect third-party services and build custom APIs
+                        </p>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                         <div class="text-blue-600 dark:text-blue-400 mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">DevOps & Deployment</h3>
@@ -240,17 +275,22 @@
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                         <div class="text-blue-600 dark:text-blue-400 mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Technical Consulting</h3>
-                        <p class="text-gray-600 dark:text-gray-300">Architecture advice and strategic technical guidance</p>
+                        <p class="text-gray-600 dark:text-gray-300">Architecture advice and strategic technical guidance
+                        </p>
                     </div>
 
                     <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
                         <div class="text-blue-600 dark:text-blue-400 mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253">
+                                </path>
                             </svg>
                         </div>
                         <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Documentation</h3>
@@ -270,47 +310,56 @@
 
                 <div class="grid md:grid-cols-2 gap-6">
                     <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                             ✓
                         </div>
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Clean Code</h3>
-                            <p class="text-gray-600 dark:text-gray-300">Writing maintainable, well-documented code that others can understand</p>
+                            <p class="text-gray-600 dark:text-gray-300">Writing maintainable, well-documented code that
+                                others can understand</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                             ✓
                         </div>
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Communication</h3>
-                            <p class="text-gray-600 dark:text-gray-300">Keeping clients informed throughout the project lifecycle</p>
+                            <p class="text-gray-600 dark:text-gray-300">Keeping clients informed throughout the project
+                                lifecycle</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                             ✓
                         </div>
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Quality</h3>
-                            <p class="text-gray-600 dark:text-gray-300">Delivering robust, tested solutions that work reliably</p>
+                            <p class="text-gray-600 dark:text-gray-300">Delivering robust, tested solutions that work
+                                reliably</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                             ✓
                         </div>
                         <div>
                             <h3 class="text-lg font-bold text-gray-900 dark:text-white mb-2">Learning</h3>
-                            <p class="text-gray-600 dark:text-gray-300">Continuously improving skills and staying current with technology</p>
+                            <p class="text-gray-600 dark:text-gray-300">Continuously improving skills and staying
+                                current with technology</p>
                         </div>
                     </div>
 
                     <div class="flex items-start space-x-4">
-                        <div class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
+                        <div
+                            class="flex-shrink-0 w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold">
                             ✓
                         </div>
                         <div>
@@ -327,13 +376,16 @@
             <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
                 <h2 class="text-3xl font-bold text-gray-900 dark:text-white mb-4">Let's Work Together</h2>
                 <p class="text-lg text-gray-600 dark:text-gray-300 mb-8">
-                    I'm always interested in challenging projects and collaborating with great people. Whether you need a full application built or just some technical guidance, I'd love to hear from you.
+                    I'm always interested in challenging projects and collaborating with great people. Whether you need
+                    a full application built or just some technical guidance, I'd love to hear from you.
                 </p>
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="/contact" class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors font-semibold">
+                    <a href="{{ site.base_path }}/contact"
+                        class="inline-block bg-blue-600 text-white px-8 py-3 rounded-lg shadow-lg hover:bg-blue-700 transition-colors font-semibold">
                         Get in Touch
                     </a>
-                    <a href="/projects" class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-3 rounded-lg shadow hover:shadow-lg transition-shadow font-semibold border border-gray-300 dark:border-gray-700">
+                    <a href="{{ site.base_path }}/projects"
+                        class="inline-block bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white px-8 py-3 rounded-lg shadow hover:shadow-lg transition-shadow font-semibold border border-gray-300 dark:border-gray-700">
                         View My Work
                     </a>
                 </div>
@@ -349,7 +401,7 @@
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
-            
+
             if (isDark) {
                 html.classList.remove('dark');
                 localStorage.theme = 'light';
@@ -360,4 +412,5 @@
         }
     </script>
 </body>
+
 </html>

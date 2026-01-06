@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title }} - Developer Portfolio</title>
     <meta name="description" content="{{ page.description }}">
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="{{ site.base_path }}/assets/css/styles.css" rel="stylesheet">
     <script>
         // Dark mode initialization (runs before page load to prevent flash)
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -15,6 +16,7 @@
         }
     </script>
 </head>
+
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
     <!-- Navigation -->
     {{ include:navigation.html }}
@@ -47,7 +49,7 @@
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
-            
+
             if (isDark) {
                 html.classList.remove('dark');
                 localStorage.theme = 'light';
@@ -58,4 +60,5 @@
         }
     </script>
 </body>
+
 </html>

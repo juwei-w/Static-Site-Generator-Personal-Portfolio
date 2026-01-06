@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Developer Portfolio</title>
     <meta name="description" content="Technical articles and insights from a freelance developer">
-    <link href="/assets/css/styles.css" rel="stylesheet">
+    <link href="{{ site.base_path }}/assets/css/styles.css" rel="stylesheet">
     <script>
         // Dark mode initialization
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -15,6 +16,7 @@
         }
     </script>
 </head>
+
 <body class="bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-200">
     <!-- Navigation -->
     {{ include:navigation.html }}
@@ -22,7 +24,8 @@
     <!-- Main Content -->
     <main class="min-h-screen">
         <!-- Hero Section -->
-        <section class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
+        <section
+            class="bg-gradient-to-br from-blue-50 to-indigo-100 dark:from-gray-800 dark:to-gray-900 border-b border-gray-200 dark:border-gray-700">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
                 <div class="text-center">
                     <h1 class="text-5xl md:text-6xl font-extrabold text-gray-900 dark:text-white mb-6">
@@ -40,56 +43,67 @@
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <!-- Blog Posts Grid -->
                 <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-2">
-                {{ foreach posts }}
-                <article class="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
-                    <div class="p-6">
-                        <!-- Post Date -->
-                        <div class="flex items-center justify-between mb-3">
-                            <time class="text-sm font-medium text-blue-600 dark:text-blue-400" datetime="{{ post.date }}">
-                                {{ post.date }}
-                            </time>
-                            <span class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full font-semibold">
-                                Article
-                            </span>
-                        </div>
-                        
-                        <!-- Post Title -->
-                        <h2 class="text-2xl font-bold mb-3">
-                            <a href="{{ post.url }}" class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
-                                {{ post.title }}
-                            </a>
-                        </h2>
-                        
-                        <!-- Post Description/Excerpt -->
-                        <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
-                            {{ post.description }}
-                        </p>
-                        
-                        <!-- Read More Link -->
-                        <a href="{{ post.url }}" class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors group">
-                            Read more
-                            <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
-                    </div>
-                </article>
-                {{ endforeach }}
-            </div>
+                    {{ foreach posts }}
+                    <article
+                        class="bg-gray-50 dark:bg-gray-800 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-xl transition-all duration-300">
+                        <div class="p-6">
+                            <!-- Post Date -->
+                            <div class="flex items-center justify-between mb-3">
+                                <time class="text-sm font-medium text-blue-600 dark:text-blue-400"
+                                    datetime="{{ post.date }}">
+                                    {{ post.date }}
+                                </time>
+                                <span
+                                    class="text-xs bg-blue-100 dark:bg-blue-900 text-blue-600 dark:text-blue-400 px-3 py-1 rounded-full font-semibold">
+                                    Article
+                                </span>
+                            </div>
 
-            <!-- Empty State (if no posts) -->
-            {{ if no_posts }}
-            <div class="text-center py-16">
-                <div class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                    </svg>
+                            <!-- Post Title -->
+                            <h2 class="text-2xl font-bold mb-3">
+                                <a href="{{ post.url }}"
+                                    class="text-gray-900 dark:text-white hover:text-blue-600 dark:hover:text-blue-400 transition-colors">
+                                    {{ post.title }}
+                                </a>
+                            </h2>
+
+                            <!-- Post Description/Excerpt -->
+                            <p class="text-gray-600 dark:text-gray-300 mb-4 line-clamp-3">
+                                {{ post.description }}
+                            </p>
+
+                            <!-- Read More Link -->
+                            <a href="{{ post.url }}"
+                                class="inline-flex items-center text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 font-semibold transition-colors group">
+                                Read more
+                                <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 5l7 7-7 7"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </article>
+                    {{ endforeach }}
                 </div>
-                <p class="text-gray-600 dark:text-gray-400 text-lg">
-                    No blog posts yet. Check back soon!
-                </p>
-            </div>
-            {{ endif }}
+
+                <!-- Empty State (if no posts) -->
+                {{ if no_posts }}
+                <div class="text-center py-16">
+                    <div
+                        class="w-16 h-16 bg-gray-200 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <p class="text-gray-600 dark:text-gray-400 text-lg">
+                        No blog posts yet. Check back soon!
+                    </p>
+                </div>
+                {{ endif }}
             </div>
         </section>
     </main>
@@ -102,7 +116,7 @@
         function toggleDarkMode() {
             const html = document.documentElement;
             const isDark = html.classList.contains('dark');
-            
+
             if (isDark) {
                 html.classList.remove('dark');
                 localStorage.theme = 'light';
@@ -113,4 +127,5 @@
         }
     </script>
 </body>
+
 </html>

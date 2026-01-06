@@ -7,14 +7,16 @@ const matter = require('gray-matter');
 const CONTENT_DIR = path.join(__dirname, '../content');
 const TEMPLATE_DIR = path.join(__dirname, '../template');
 const PUBLIC_DIR = path.join(__dirname, '../public');
+const repo = process.env.GITHUB_REPOSITORY ? process.env.GITHUB_REPOSITORY.split('/')[1] : '';
+const BASE_PATH = process.env.GITHUB_ACTIONS && repo && !repo.endsWith('.github.io') ? '/' + repo : '';
 
 // Helper: Format date
 function formatDate(dateString) {
     const date = new Date(dateString);
-    return date.toLocaleDateString('en-US', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
+    return date.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
     });
 }
 
@@ -55,22 +57,22 @@ function processIncludes(template) {
 // Process template variables
 function processVariables(template, data) {
     let result = template;
-    
+
     // Replace page variables
     Object.keys(data.page || {}).forEach(key => {
         const regex = new RegExp(`\\{\\{\\s*page\\.${key}\\s*\\}\\}`, 'g');
         result = result.replace(regex, data.page[key] || '');
     });
-    
+
     // Replace site variables
     Object.keys(data.site || {}).forEach(key => {
         const regex = new RegExp(`\\{\\{\\s*site\\.${key}\\s*\\}\\}`, 'g');
         result = result.replace(regex, data.site[key] || '');
     });
-    
+
     // Replace main content
     result = result.replace(/\{\{\s*main_content\s*\}\}/g, data.main_content || '');
-    
+
     return result;
 }
 
@@ -87,50 +89,50 @@ function processConditionals(template, data) {
 function processContent(contentPath, type) {
     const files = fs.readdirSync(contentPath).filter(f => f.endsWith('.md'));
     const posts = [];
-    
+
     files.forEach(file => {
         const filePath = path.join(contentPath, file);
         const fileContent = fs.readFileSync(filePath, 'utf8');
         const { data: frontmatter, content } = matter(fileContent);
-        
+
         // Skip drafts in production build
         if (frontmatter.status !== 'published') {
             console.log(`Skipping draft: ${file}`);
             return;
         }
-        
+
         // Generate slug if not provided
         const slug = frontmatter.slug || generateSlug(frontmatter.title);
-        
+
         // Convert markdown to HTML
         const htmlContent = marked(content);
-        
+
         // Format date
         const formattedDate = formatDate(frontmatter.date);
-        
+
         // Get excerpt
         const excerpt = frontmatter.description || generateExcerpt(content);
-        
+
         posts.push({
             ...frontmatter,
             content: htmlContent,
             slug,
             formattedDate,
             excerpt,
-            url: type === 'posts' ? `/blog/${slug}` : `/${slug}`
+            url: BASE_PATH + (type === 'posts' ? `/blog/${slug}` : `/${slug}`)
         });
     });
-    
+
     return posts;
 }
 
 // Build a single page
 function buildPage(pageData, template) {
     let html = template;
-    
+
     // Process includes
     html = processIncludes(html);
-    
+
     // Process conditionals
     html = processConditionals(html, {
         page: {
@@ -140,7 +142,7 @@ function buildPage(pageData, template) {
             author: pageData.author
         }
     });
-    
+
     // Process variables
     html = processVariables(html, {
         page: {
@@ -151,24 +153,25 @@ function buildPage(pageData, template) {
         },
         site: {
             name: 'YourName.dev',
-            url: 'https://yourname.dev'
+            url: 'https://yourname.dev',
+            base_path: BASE_PATH
         },
         main_content: pageData.content
     });
-    
+
     return html;
 }
 
 // Build blog index
 function buildBlogIndex(posts, template) {
     let html = template;
-    
+
     // Process includes
     html = processIncludes(html);
-    
+
     // Sort posts by date (newest first)
     const sortedPosts = posts.sort((a, b) => new Date(b.date) - new Date(a.date));
-    
+
     // Build post cards HTML
     const postCards = sortedPosts.map(post => `
         <article class="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 overflow-hidden hover:shadow-lg transition-shadow duration-200">
@@ -193,30 +196,30 @@ function buildBlogIndex(posts, template) {
             </div>
         </article>
     `).join('\n');
-    
+
     // Replace foreach loop
     html = html.replace(/\{\{\s*foreach posts\s*\}\}[\s\S]*?\{\{\s*endforeach\s*\}\}/g, postCards);
-    
+
     // Handle no posts case
-    html = html.replace(/\{\{\s*if no_posts\s*\}\}[\s\S]*?\{\{\s*endif\s*\}\}/g, 
+    html = html.replace(/\{\{\s*if no_posts\s*\}\}[\s\S]*?\{\{\s*endif\s*\}\}/g,
         posts.length === 0 ? '<div class="text-center py-16"><p class="text-gray-600 dark:text-gray-400 text-lg">No blog posts yet. Check back soon!</p></div>' : '');
-    
+
     return html;
 }
 
 // Main build function
 async function build() {
     console.log('🚀 Starting build...\n');
-    
+
     // Clean public directory
     await fs.emptyDir(PUBLIC_DIR);
     console.log('✓ Cleaned public directory');
-    
+
     // Create necessary directories
     await fs.ensureDir(path.join(PUBLIC_DIR, 'blog'));
     await fs.ensureDir(path.join(PUBLIC_DIR, 'assets', 'css'));
     console.log('✓ Created directory structure');
-    
+
     // Read templates
     const mainTemplate = readTemplate('main.html');
     const blogIndexTemplate = readTemplate('blog-index.html');
@@ -224,12 +227,12 @@ async function build() {
     const aboutTemplate = readTemplate('about.html');
     const contactTemplate = readTemplate('contact.html');
     console.log('✓ Read templates');
-    
+
     // Process posts
     const postsPath = path.join(CONTENT_DIR, 'posts');
     const posts = processContent(postsPath, 'posts');
     console.log(`✓ Processed ${posts.length} blog posts`);
-    
+
     // Build individual blog posts
     posts.forEach(post => {
         const html = buildPage(post, mainTemplate);
@@ -238,17 +241,17 @@ async function build() {
         fs.writeFileSync(outputPath, html);
     });
     console.log(`✓ Built ${posts.length} blog post pages`);
-    
+
     // Build blog index
     const blogIndexHtml = buildBlogIndex(posts, blogIndexTemplate);
     fs.writeFileSync(path.join(PUBLIC_DIR, 'blog', 'index.html'), blogIndexHtml);
     console.log('✓ Built blog index page');
-    
+
     // Process pages
     const pagesPath = path.join(CONTENT_DIR, 'pages');
     const pages = processContent(pagesPath, 'pages');
     console.log(`✓ Processed ${pages.length} static pages`);
-    
+
     // Build individual pages
     pages.forEach(page => {
         // Use dedicated templates for specific pages, main.html for others
@@ -260,20 +263,20 @@ async function build() {
         } else if (page.slug === 'contact') {
             template = contactTemplate;
         }
-        
+
         const html = buildPage(page, template);
         const outputPath = path.join(PUBLIC_DIR, page.slug, 'index.html');
         fs.ensureDirSync(path.dirname(outputPath));
         fs.writeFileSync(outputPath, html);
     });
     console.log(`✓ Built ${pages.length} static pages`);
-    
+
     // Create homepage using dedicated home.html template
     const homeTemplate = readTemplate('home.html');
     const homeHtml = processIncludes(homeTemplate);
     fs.writeFileSync(path.join(PUBLIC_DIR, 'index.html'), homeHtml);
     console.log('✓ Built homepage with hero template');
-    
+
     console.log('\n✅ Build complete!');
     console.log(`\nGenerated files in: ${PUBLIC_DIR}`);
     console.log(`Total pages: ${posts.length + pages.length + 2}\n`);
