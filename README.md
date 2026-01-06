@@ -2,6 +2,9 @@
 
 A custom static site generator built with Node.js for creating a personal developer portfolio and blog.
 
+**🔴 Live Demo:** [https://juwei-w.github.io/Static-Site-Generator-Personal-Portfolio/](https://juwei-w.github.io/Static-Site-Generator-Personal-Portfolio/)
+
+
 ## 🚀 Quick Start
 
 ### Prerequisites
